@@ -2,10 +2,15 @@ include_directories(..)
 
 set(ENGINE_INCLUDE_FILES
   temp/Hello.h
+  json/BatchJSON.h
+  json/IJerialize.h
+  json/JsonWriter.h
 )
 
 set(ENGINE_SRC_FILES
   temp/Hello.cpp
+  json/BatchJSON.cpp
+  json/JsonWriter.cpp
 )
 
 add_library(drunken_sailor_engine STATIC ${ENGINE_INCLUDE_FILES} ${ENGINE_SRC_FILES})
