@@ -1,7 +1,7 @@
 include_directories(..)
 
 set(ENGINE_INCLUDE_FILES
-  Config.h
+  water_terrain/Water.h Config.h
   Engine.h
   common/Common.h
   common/StreamBuffer.h
@@ -34,7 +34,7 @@ set(ENGINE_INCLUDE_FILES
 )
 
 set(ENGINE_SRC_FILES
-  Config.cpp
+  water_terrain/Water.cpp Config.cpp
   Engine.cpp
   common/Common.cpp
   common/StreamBuffer.cpp
