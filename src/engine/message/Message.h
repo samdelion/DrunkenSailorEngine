@@ -56,7 +56,9 @@ enum class MessageType
     // Strafe Right
     StrafeRight,
     // Set an entity's local transform
-    SetLocalTransform
+    SetLocalTransform,
+    // Ask to move in the physics world
+    PhysicsMove,
 };
 
 /**
@@ -151,5 +153,13 @@ struct SetLocalTransform
 {
     ds::Entity entity;               // Entity to set local transform of
     ds_math::Matrix4 localTransform; // New local transform
+};
+
+struct PhysicsMove
+{
+    ds::Entity entity;                // Entity to move
+    ds_math::Vector3 position;        // Position of entity
+    ds_math::Vector3 velocity;        // Velocity of entity
+    ds_math::Vector3 ellipsoidRadius; // Ellipsoid radius
 };
 }

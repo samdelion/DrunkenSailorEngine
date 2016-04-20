@@ -1103,6 +1103,42 @@ static int l_Matrix4Mul(lua_State *L)
     return 1;
 }
 
+static int l_Matrix4GetColumn(lua_State *L)
+{
+    // Get number of arguments provided
+    int n = lua_gettop(L);
+    if (n != 2)
+    {
+        return luaL_error(L, "Got %d arguments, expected 2.", n);
+    }
+
+    ds_math::Matrix4 *m = NULL;
+
+    // Get matrix from Lua
+    m = (ds_math::Matrix4 *)luaL_checkudata(L, 1, "Matrix4");
+
+    if (m != NULL)
+    {
+        // Get column index
+        int iColumn = luaL_checknumber(L, 2);
+
+        // Allocate memory for Vector4
+        ds_math::Vector4 *column = (ds_math::Vector4 *)lua_newuserdata(L, sizeof(ds_math::Vector4)); 
+
+        *column = (*m)[iColumn]; 
+
+        // Get Vector3 metatable
+        luaL_getmetatable(L, "Vector4");
+        // Set it as metatable of new user data (the Vector3)
+        lua_setmetatable(L, -2);
+    }
+
+    // Matrix4 and index arguments as well column result
+    assert(lua_gettop(L) == 3);
+
+    return 1;
+}
+
 static int l_Vector4Ctor(lua_State *L)
 {
     // Get number of arguments provided
@@ -1124,7 +1160,7 @@ static int l_Vector4Ctor(lua_State *L)
 
     *v = ds_math::Vector4(x, y, z, w);
 
-    // Get Vector3 metatable
+    // Get Vector4 metatable
     luaL_getmetatable(L, "Vector4");
     // Set it as metatable of new user data (the Vector3)
     lua_setmetatable(L, -2);
@@ -1686,7 +1722,7 @@ static int l_Vector4SetW(lua_State *L)
 
 // static int l_Vector3Scale(lua_State *L)
 // {
-    
+
 // }
 
 static const luaL_Reg vector3Methods[] = {{"__tostring", l_Vector3ToString},
@@ -1763,8 +1799,10 @@ static const luaL_Reg quaternionFunctions[] = {
 static const luaL_Reg quaternionSpecial[] = {{"__call", l_QuaternionCtor},
                                              {NULL, NULL}};
 
-static const luaL_Reg matrix4Methods[] = {
-    {"__tostring", l_Matrix4ToString}, {"__mul", l_Matrix4Mul}, {NULL, NULL}};
+static const luaL_Reg matrix4Methods[] = {{"__tostring", l_Matrix4ToString},
+                                          {"__mul", l_Matrix4Mul},
+                                          {"get_column", l_Matrix4GetColumn},
+                                          {NULL, NULL}};
 
 static const luaL_Reg matrix4Functions[] = {
     {"transpose", l_Matrix4Transpose},

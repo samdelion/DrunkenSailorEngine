@@ -283,6 +283,18 @@ void Console::ProcessEvents(ds_msg::MessageStream *messages)
             //          << " to: " << setLocalMsg.localTransform << std::endl;
             break;
         }
+        case ds_msg::MessageType::PhysicsMove:
+        {
+            ds_msg::PhysicsMove physMove;
+            (*messages) >> physMove;
+
+            m_buffer << "Entity moved: " << physMove.entity.id
+                     << " position: " << physMove.position
+                     << " velocity: " << physMove.velocity
+                     << " ellipsoidRadius: " << physMove.ellipsoidRadius
+                     << std::endl;
+            break;
+        }
         default:
             // Always extract the payload
             messages->Extract(header.size);

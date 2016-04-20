@@ -31,6 +31,7 @@ set(ENGINE_INCLUDE_FILES
   system/physics/Physics.h
   system/physics/PhysicsHandler.h
   system/physics/MotionStateExample.h
+  system/physics_world/PhysicsWorld.h
   system/input/Input.h
   system/input/InputContext.h
   system/platform/Keyboard.h
@@ -81,6 +82,8 @@ set(ENGINE_SRC_FILES
   system/physics/Physics.cpp
   system/physics/PhysicsHandler.cpp
   system/physics/MotionStateExample.cpp
+  system/physics_world/PhysicsWorld.cpp
+  system/physics_world/PhysicsWorldLuaBindings.cpp
   system/input/Input.cpp
   system/input/InputContext.cpp
   system/input/InputLuaBindings.cpp
